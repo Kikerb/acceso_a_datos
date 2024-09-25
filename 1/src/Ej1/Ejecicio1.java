@@ -31,11 +31,18 @@ public class Ejecicio1 {
                 System.out.println(ruta_antigua.getAbsolutePath() + " se ha movido a " + ruta_nueva.getAbsolutePath());
                 System.out.println(ruta_nueva.getPath());
                 System.out.println("");
+                
+                File archivo = new File ("C:/Users/AlumnoT/Desktop/acceso_a_datos/1/cine_granada/" + array[j] + "/sesiones.txt" );
+                archivo.createNewFile();
+
             }
             
+                        
             }else {
                 System.out.println("El directorio 'cine_granada' ya existe");
-            }        
+            }  
+            
+            
     }
 
 }
