@@ -29,12 +29,16 @@ public class Ejecicio1 {
             }
             
        }
-       
+       System.out.println("---------------------Archivos creados hasta ahora---------------------");
+       System.out.println("");
        for (int j =0; j <7;j++) {
            File ruta_antigua = new File("C:/Users/AlumnoT/Desktop/acceso_a_datos/1/" + array[j]);
            File ruta_nueva= new File("C:/Users/AlumnoT/Desktop/acceso_a_datos/1/cine_granada/" + array[j]);
            ruta_antigua.renameTo(ruta_nueva);
+           System.out.println(ruta_nueva.getPath());
+           System.out.println("");
        }
+       
        
     }
 
