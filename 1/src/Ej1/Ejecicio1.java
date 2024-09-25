@@ -8,17 +8,14 @@ public class Ejecicio1 {
     
         
         File directorio = new File("C:/Users/AlumnoT/Desktop/acceso_a_datos/1/cine_granada");
+        	directorio.mkdir();
+        String[] array = {"Lunes","Martes","Miercoles","Jueves","Viernes","Sabado","Domingo"};
+            
+        for (int i=0; i < 7;i++) {
+        	File ficheroDias = new File("C:/Users/AlumnoT/Desktop/acceso_a_datos/1/" + array[i]);
+        	ficheroDias.mkdir();
+        }        
         
-        if (!directorio.exists()) {
-            boolean creado = directorio.mkdir();
-            if (creado) {
-                System.out.println("El directorio 'cine_granada' ha sido creado exitosamente.");
-            	} else {
-                System.out.println("No se pudo crear el directorio 'cine_granada'.");
-            }
-        	} else {
-            System.out.println("El directorio 'cine_granada' ya existe.");
-        }
     }
 
 }
