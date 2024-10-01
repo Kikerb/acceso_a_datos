@@ -1,6 +1,8 @@
 package Ej1;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class Ejecicio1 {
@@ -42,6 +44,19 @@ public class Ejecicio1 {
                 System.out.println("El directorio 'cine_granada' ya existe");
             }  
             
+            FileOutputStream escritura = new FileOutputStream ("C:/Users/AlumnoT/Desktop/acceso_a_datos/1/cine_granada/Lunes/sesiones.txt");
+            String cadena = "Spiderman (2002): 18:00 - 20:07";
+            byte[] arrayBytes = cadena.getBytes();
+            escritura.write(arrayBytes);
+            escritura.close();
+            
+            FileInputStream lectura = new FileInputStream ("C:/Users/AlumnoT/Desktop/acceso_a_datos/1/cine_granada/Lunes/sesiones.txt");
+            int letra = lectura.read();
+            while (letra != -1) {
+            	System.out.print((char)letra);
+            	letra = lectura.read();
+            }
+            lectura.close();
             
     }
 
