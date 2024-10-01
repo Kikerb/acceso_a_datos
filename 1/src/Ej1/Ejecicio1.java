@@ -3,6 +3,8 @@ package Ej1;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class Ejecicio1 {
@@ -57,6 +59,20 @@ public class Ejecicio1 {
             	letra = lectura.read();
             }
             lectura.close();
+            
+            System.out.println("");
+            			
+            FileWriter escribir = new FileWriter("C:/Users/AlumnoT/Desktop/acceso_a_datos/1/cine_granada/Martes/sesiones.txt");
+            escribir.write("Iron Man (2008): 17:00 - 19:06");
+            escribir.close();
+            
+            FileReader leer = new FileReader("C:/Users/AlumnoT/Desktop/acceso_a_datos/1/cine_granada/Martes/sesiones.txt");
+            int letra2 = leer.read();
+            while (letra2 != -1) {
+            	System.out.print((char)letra2);
+            	letra2 = leer.read();
+            }
+            leer.close();
             
     }
 
