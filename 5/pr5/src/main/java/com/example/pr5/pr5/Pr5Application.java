@@ -1,13 +1,13 @@
-package com.example.enriquerios.practica5;
+package com.example.pr5.pr5;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Practica5Application {
+public class Pr5Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Practica5Application.class, args);
+		SpringApplication.run(Pr5Application.class, args);
 	}
 
 }
