@@ -17,7 +17,7 @@ public class Practica78RevApplication {
 		//			Teams			  //
 		//							  //
 		////////////////////////////////
-	
+		/*
 		TeamService teamService = ctx.getBean(TeamService.class);
 		
 		//1. Insertar uno
@@ -84,6 +84,7 @@ public class Practica78RevApplication {
 		//12. Obtener por otro atributo y mostrar por pantalla 
 		List<Piloto> pilotosObtenidos = pilotoService.obtenerNombresPilotos("JorgeMartin89");
 		System.out.print("Se ha obtenido de la base de datos: " + pilotosObtenidos.get(0).getId() + " " + pilotosObtenidos.get(0).getName());
+		*/
 	}
 
 }

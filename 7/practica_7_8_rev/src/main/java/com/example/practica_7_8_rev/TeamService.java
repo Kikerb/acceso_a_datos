@@ -22,7 +22,7 @@ public class TeamService {
 	
 	public TeamService() {}
 	
-	public Long insertarTeam(Team team) {		//CAMBIO: DEBÍA DEVOLVER ID
+	public Long insertarTeam(Team team) {
 		Session session = sessionFactory.openSession();
 		Transaction transaction = null;
 		
@@ -113,29 +113,71 @@ public class TeamService {
 		return team;
 	}
 	
-public List<Team> obtenerNombresTeams(String factory){
-		
-		Session session = sessionFactory.openSession();
-		List<Team> teams = null;
-		
-		try {
-			CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-			
-			CriteriaQuery<Team> criteriaQuery = criteriaBuilder.createQuery(Team.class);
-			
-			Root<Team> root = criteriaQuery.from(Team.class);
-			
-			//CAMBIO PRIMER ARGUMENTO
-			criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("factory"), factory));
-			
-			teams = session.createQuery(criteriaQuery).getResultList();
-		}catch (Exception e){
-			e.printStackTrace();
-		}finally {
-			session.close();
-		}
-		
-		return teams;
+	public List<Team> obtenerNombresTeams(String factory) {
+	    Session session = sessionFactory.openSession();
+	    List<Team> teams = null;
+
+	    try {
+	        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+	        CriteriaQuery<Team> criteriaQuery = criteriaBuilder.createQuery(Team.class);
+
+	        Root<Team> root = criteriaQuery.from(Team.class);
+
+	        criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("factory"), factory));
+
+	        teams = session.createQuery(criteriaQuery).getResultList();
+	    } catch (Exception e) {
+	        throw new RuntimeException("Error al obtener equipos por fábrica: " + factory, e);
+	    } finally {
+	        session.close();
+	    }
+
+	    return teams;
+	}
+
+	public List<Team> obtenerTodoTeams() {
+	    Session session = sessionFactory.openSession();
+	    List<Team> teamFullList = null;
+	
+	    try {
+	        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+	        CriteriaQuery<Team> criteriaQuery = criteriaBuilder.createQuery(Team.class);
+	        
+	        Root<Team> root = criteriaQuery.from(Team.class);
+	
+	        criteriaQuery.select(root);
+	
+	        teamFullList = session.createQuery(criteriaQuery).getResultList();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        session.close();
+	    }
+	
+	    return teamFullList;
+	}
+	public boolean borrarTeamPorId(Long id) {
+	    Session session = sessionFactory.openSession();
+	    Transaction transaction = null;
+
+	    try {
+	        transaction = session.beginTransaction();
+	        Team team = session.get(Team.class, id); 
+	        if (team != null) {
+	            session.delete(team); 
+	            transaction.commit();
+	            return true; 
+	        } else {
+	            return false; 
+	        }
+	    } catch (Exception e) {
+	        if (transaction != null) {
+	            transaction.rollback();
+	        }
+	        throw new RuntimeException("Error al borrar el equipo con ID: " + id, e);
+	    } finally {
+	        session.close();
+	    }
 	}
 
 		
