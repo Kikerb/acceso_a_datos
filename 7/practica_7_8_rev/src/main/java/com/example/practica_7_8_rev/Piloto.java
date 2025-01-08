@@ -50,4 +50,12 @@ public class Piloto {
 		this.name = name;
 	}
 	
+	public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+	
 }

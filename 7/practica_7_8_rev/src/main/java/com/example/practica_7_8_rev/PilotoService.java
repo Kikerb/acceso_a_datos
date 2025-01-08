@@ -21,25 +21,24 @@ public class PilotoService {
 	
 	public PilotoService() {}
 	
-	public Long insertarPiloto(Piloto piloto) {	//CAMBIO, DEVUELVE ID
-		Session session = sessionFactory.openSession();
-		Transaction transaction = null;
-		
-		try {
-			transaction = session.beginTransaction();
-			session.persist(piloto);
-			transaction.commit();
-			
-		}catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
-			}
-			e.printStackTrace();
-		}finally {
-			session.close();
-		}
-		
-		return piloto.getId();
+	public Long insertarPiloto(Piloto piloto) {
+	    Session session = sessionFactory.openSession();
+	    Transaction transaction = null;
+
+	    try {
+	        transaction = session.beginTransaction();
+	        session.persist(piloto);
+	        transaction.commit();
+	    } catch (Exception e) {
+	        if (transaction != null) {
+	            transaction.rollback();
+	        }
+	        e.printStackTrace();
+	    } finally {
+	        session.close();
+	    }
+
+	    return piloto.getId();
 	}
 	
 	public void borrarPiloto(Piloto piloto) {
@@ -131,6 +130,71 @@ public class PilotoService {
 		}
 		
 		return pilotos;
+	}
+
+	public void actualizarIdTeam(Piloto piloto) {
+		Session session = sessionFactory.openSession();
+		Transaction transaction = null;
+		
+		try {
+			transaction = session.beginTransaction();
+			session.merge(piloto);
+			transaction.commit();
+			
+		}catch (Exception e) {
+			if (transaction != null) {
+				transaction.rollback();
+			}
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+	}
+	
+	public boolean borrarPilotoPorId(Long id) {
+	    Session session = sessionFactory.openSession();
+	    Transaction transaction = null;
+
+	    try {
+	        transaction = session.beginTransaction();
+	        Piloto piloto = session.get(Piloto.class, id); 
+	        if (piloto != null) {
+	            session.delete(piloto); 
+	            transaction.commit();
+	            return true; 
+	        } else {
+	            return false; 
+	        }
+	    } catch (Exception e) {
+	        if (transaction != null) {
+	            transaction.rollback();
+	        }
+	        throw new RuntimeException("Error al borrar el piloto con ID: " + id, e);
+	    } finally {
+	        session.close();
+	    }
+	}
+	
+	public List<Piloto> obtenerTodoslosPilotos() {
+	    Session session = sessionFactory.openSession();
+	    List<Piloto> teamFullList = null;
+	
+	    try {
+	        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+	        CriteriaQuery<Piloto> criteriaQuery = criteriaBuilder.createQuery(Piloto.class);
+	        
+	        Root<Piloto> root = criteriaQuery.from(Piloto.class);
+	
+	        criteriaQuery.select(root);
+	
+	        teamFullList = session.createQuery(criteriaQuery).getResultList();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        session.close();
+	    }
+	
+	    return teamFullList;
 	}
 		
 }
